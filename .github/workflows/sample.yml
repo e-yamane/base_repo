@@ -22,7 +22,7 @@ jobs:
       - name: Run a multi-line script
         env:
           DEPLOY_SECRET_KEY: ${{ secrets.DEPLOY_SECRET_KEY}}
-          BRANCH: ${{ github.ref.name}}
+          BRANCH: ${{ github.ref_name}}
         run: |
           echo $BRANCH
           mkdir -p $BRANCH
