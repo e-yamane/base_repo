@@ -22,11 +22,13 @@ jobs:
       - name: Run a multi-line script
         env:
           DEPLOY_SECRET_KEY: ${{ secrets.DEPLOY_SECRET_KEY}}
+          BRANCH: ${{ github.ref}}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          touch `date +%Y%m%d_%H%M%S`
+          echo $BRANCH"
+          mkdir -p $BRANCH
+          touch $BRANCH/`date +%Y%m%d_%H%M%S`
           echo "$DEPLOY_SECRET_KEY" > ~/.deploykey.pem
           wc ~/.deploykey.pem
           ls
+          ls $BRANCH
           pwd
