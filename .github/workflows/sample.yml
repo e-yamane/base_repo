@@ -31,10 +31,11 @@ jobs:
           BRANCH: ${{ github.ref_name}}
         run: |
           echo $BRANCH
-          mkdir -p $BRANCH
-          touch $BRANCH/`date +%Y%m%d_%H%M%S`
+          mkdir -p test_report/$BRANCH
+          touch test_report/$BRANCH/`date +%Y%m%d_%H%M%S`
           echo "$DEPLOY_SECRET_KEY" > ~/.deploykey.pem
           wc ~/.deploykey.pem
-          ls
-          ls $BRANCH
-          pwd
+          cd test_report
+          git add --all
+          git commit -m "test report update."
+          git log -n 3
