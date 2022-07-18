@@ -19,23 +19,29 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: checkout test report repository
-        uses: actions/checkout@v3
-        with:
-          repository: e-yamane/jasmine_test_report
-          path: test_report
+#      - name: checkout test report repository
+#        uses: actions/checkout@v3
+#        with:
+#          repository: e-yamane/jasmine_test_report
+#          path: test_report
 
       - name: Run a multi-line script
-        env:
-          DEPLOY_SECRET_KEY: ${{ secrets.DEPLOY_SECRET_KEY}}
-          BRANCH: ${{ github.ref_name}}
+#        env:
+#          DEPLOY_SECRET_KEY: ${{ secrets.DEPLOY_SECRET_KEY}}
+#          BRANCH: ${{ github.ref_name}}
         run: |
           echo $BRANCH
-          mkdir -p test_report/$BRANCH
-          touch test_report/$BRANCH/`date +%Y%m%d_%H%M%S`
-          echo "$DEPLOY_SECRET_KEY" > ~/.deploykey.pem
-          wc ~/.deploykey.pem
-          cd test_report
-          git add --all
-          git commit -m "test report update."
-          git log -n 3
+          mkdir -p public/$BRANCH
+          touch public/$BRANCH/`date +%Y%m%d_%H%M%S`
+#          echo "$DEPLOY_SECRET_KEY" > ~/.deploykey.pem
+#          wc ~/.deploykey.pem
+#          cd test_report
+#          git add --all
+#          git commit -m "test report update."
+#          git log -n 3
+    
+      - name: Update Report
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public        
